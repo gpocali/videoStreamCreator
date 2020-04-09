@@ -1,6 +1,6 @@
 #!/bin/ash
 IFS=$'\n'
-for i in $(find /videos -path "/videos/System Volume Information" -prune -o -type f -print | uniq); do 
-    echo "file \"$i\"" | tee -a /tmp/videos.tmp
+for i in $(find /videos -path "/videos/System Volume Information" -prune -o -type f -print | uniq); do
+    echo "file '$i'" | tee -a /tmp/videos.tmp
 done
-ffmpeg -loop -f concat -safe 0 -i /tmp/videos.tmp -c copy -f mpegts "icecast://source:$ICECAST_SOURCE_SECRET@$ICECAST_SERVER:$ICECAST_PORT/ICECAST_MOUNT.ts"
+ffmpeg -stream_loop -1 -f concat -re -safe 0 -i /tmp/videos.tmp -c copy -f mpegts "icecast://source:$ICECAST_SOURCE_SECRET@$ICECAST_SERVER:$ICECAST_PORT/ICECAST_MOUNT.ts"
