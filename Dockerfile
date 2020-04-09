@@ -1,4 +1,4 @@
 FROM jrottenberg/ffmpeg:4.1-alpine
 COPY ./videoStreamCreator /bin/videoStreamCreator
-CMD chmod +x /bin/videoStreamCreator
-RUN /bin/videoStreamCreator
+RUN chmod +x /bin/videoStreamCreator
+CMD /bin/videoStreamCreator
