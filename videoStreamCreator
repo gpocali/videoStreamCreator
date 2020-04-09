@@ -1,4 +1,5 @@
 #!/bin/ash
+IFS=$'\n'
 for i in $(find /videos -path "/videos/System Volume Information" -prune -o -type f -print | uniq); do 
     echo "file \"$i\"" | tee -a /tmp/videos.tmp
 done
