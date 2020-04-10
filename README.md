@@ -1,5 +1,9 @@
 # videoStreamCreator
- Creates video stream for icecast server from movie files in folder
+ Creates video stream for icecast server from movie files in folder.
+ 
+ This will loop over all files found in the mounted directory and any subfolders within.
+ 
+ This entire project is in Alpha.
 
 ## Path
 - Video Storage Directory: /videos
