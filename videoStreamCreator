@@ -5,5 +5,5 @@ while true; do
     for i in $(find /videos -path "/videos/System Volume Information" -prune -o -type f -print | uniq); do
         echo "file '$i'" | tee -a /tmp/videos.tmp
     done
-    ffmpeg -f concat -re -safe 0 -i /tmp/videos.tmp -c copy -content_type video/MP2T -f mpegts "icecast://source:${ICECAST_SOURCE_SECRET}@${ICECAST_SERVER}:${ICECAST_PORT}/${ICECAST_MOUNT}.ts"
+    ffmpeg -fflags +igndts -f concat -re -safe 0 -i /tmp/videos.tmp -c copy -content_type video/MP2T -f mpegts "icecast://source:${ICECAST_SOURCE_SECRET}@${ICECAST_SERVER}:${ICECAST_PORT}/${ICECAST_MOUNT}.ts"
 done
