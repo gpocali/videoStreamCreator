@@ -6,6 +6,7 @@
 ## Path
  - Video Storage Directory: /videos
  - Hidden Files (starting with ".") and Subdirectories will be ignored
+ - Files which contain an open bracket ('[') in the name will not have audio when streamed
 
 ## Environmental Variables
  - ICECAST_SERVER

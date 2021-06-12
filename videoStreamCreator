@@ -3,9 +3,13 @@ IFS=$'\n'
 while true; do
     rm /tmp/videos.tmp
     for i in $(find /videos -name ".*" -prune -maxdepth 1 -o -type f -print | uniq); do
-        if [[ $i != hide-* ]]; then
+        if [ $(echo $i | grep '\[' | wc -l) -ne 0 ]; then
+            audio="-an"
+        else
+            audio=""
+        fi
             echo "file '$i'" | tee -a /tmp/videos.tmp
-            ffmpeg -hide_banner -fflags +igndts -re -i "$i" -c copy -content_type video/MP2T -f mpegts "icecast://source:${ICECAST_SOURCE_SECRET}@${ICECAST_SERVER}:${ICECAST_PORT}/${ICECAST_MOUNT}.ts"
+            ffmpeg -hide_banner -fflags +igndts -re -i "$i" -c copy ${audio} -content_type video/MP2T -f mpegts "icecast://source:${ICECAST_SOURCE_SECRET}@${ICECAST_SERVER}:${ICECAST_PORT}/${ICECAST_MOUNT}.ts"
         fi
     done
     #ffmpeg -fflags +igndts -f concat -re -safe 0 -i /tmp/videos.tmp -c copy -content_type video/MP2T -f mpegts "icecast://source:${ICECAST_SOURCE_SECRET}@${ICECAST_SERVER}:${ICECAST_PORT}/${ICECAST_MOUNT}.ts"
